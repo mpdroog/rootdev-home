@@ -35,7 +35,12 @@ func email(w http.ResponseWriter, r *http.Request) {
 
     mg := mailgun.NewMailgun(os.Getenv("MAILGUN_DOMAIN"), os.Getenv("MAILGUN_APIKEY"), os.Getenv("MAILGUN_PUBLICAPIKEY"))
     message := mailgun.NewMessage("noreply@rootdev.nl", "Contact request", "From=" + msg.Email + "\n\n" + msg.Body, "rootdev@gmail.com")
-    mg.Send(message)
+    if _, idx, e := mg.Send(message); e != nil {
+        w.WriteHeader(http.StatusInternalServerError)
+        w.Write([]byte("Sorry failed sending email."))
+        fmt.Printf("ERR:email:send(%d): %s", idx, e)
+        return
+    }
     w.Write([]byte("Sent email."))
 }
 
