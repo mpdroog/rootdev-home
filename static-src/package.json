@@ -9,6 +9,7 @@
   "devDependencies": {
     "gulp": "*",
     "gulp-concat": "*",
+    "gulp-htmlmin": "^2.0.0",
     "gulp-jade": "*",
     "gulp-minify-css": "*",
     "gulp-uglify": "*",
