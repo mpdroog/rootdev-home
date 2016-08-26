@@ -1,0 +1,22 @@
+{
+  "name": "Static.Usenet.Farm",
+  "description": "Static data (HTML+CSS+JS) so we can always be online.",
+  "author": "MP Droog <mark@itshosted.nl>",
+  "scripts": {
+    "build": "./node_modules/gulp/bin/gulp.js",
+    "deploy": "./node_modules/gulp/bin/gulp.js --deploy"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-concat": "*",
+    "gulp-jade": "*",
+    "gulp-minify-css": "*",
+    "gulp-uglify": "*",
+    "gulp-uncss": "*",
+    "gulp-util": "*",
+    "gulp-zopfli": "*",
+    "merge-stream": "*"
+  },
+  "private": true,
+  "license": "Closed"
+}
