@@ -9,6 +9,8 @@ import (
 	"fmt"
 	"flag"
     "gopkg.in/mailgun/mailgun-go.v1"
+    "gopkg.in/validator.v2"
+    "github.com/gorilla/schema"
 )
 
 var (
@@ -16,10 +18,25 @@ var (
 )
 
 func email(w http.ResponseWriter, r *http.Request) {    
-    mg := mailgun.NewMailgun(os.Getenv("MAILGUN_DOMAIN"), os.Getenv("MAILGUN_APIKEY"), os.Getenv("MAILGUN_PUBLICAPIKEY"))
-    message := mailgun.NewMessage("noreply@rootdev.nl", "Contact request", "Hello from Mailgun Go!", "rootdev@gmail.com")
+    msg := new(Email)
+    dec := schema.NewDecoder()
+    if e := dec.Decode(msg, r.PostForm); e != nil {
+        w.WriteHeader(http.StatusInternalServerError)
+        w.Write([]byte("Sorry undecodable input."))
+        fmt.Printf("ERR:email:decode: %s", e)
+        return
+    }
+    if e := validator.NewValidator().Validate(msg); e != nil {
+        w.WriteHeader(http.StatusUnprocessableEntity)
+        w.Write([]byte("Sorry invalid input."))
+        fmt.Printf("ERR:email:validate: %s", e)
+        return
+    }
 
+    mg := mailgun.NewMailgun(os.Getenv("MAILGUN_DOMAIN"), os.Getenv("MAILGUN_APIKEY"), os.Getenv("MAILGUN_PUBLICAPIKEY"))
+    message := mailgun.NewMessage("noreply@rootdev.nl", "Contact request", "From=" + msg.Email + "\n\n" + msg.Body, "rootdev@gmail.com")
     mg.Send(message)
+    w.Write([]byte("Sent email."))
 }
 
 func main() {
