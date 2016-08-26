@@ -23,13 +23,13 @@ func email(w http.ResponseWriter, r *http.Request) {
     if e := dec.Decode(msg, r.PostForm); e != nil {
         w.WriteHeader(http.StatusInternalServerError)
         w.Write([]byte("Sorry undecodable input."))
-        fmt.Printf("ERR:email:decode: %s", e)
+        fmt.Printf("ERR:email:decode: %s\n", e)
         return
     }
     if e := validator.NewValidator().Validate(msg); e != nil {
         w.WriteHeader(http.StatusUnprocessableEntity)
         w.Write([]byte("Sorry invalid input."))
-        fmt.Printf("ERR:email:validate: %s", e)
+        fmt.Printf("ERR:email:validate: %s\n", e)
         return
     }
 
@@ -38,7 +38,7 @@ func email(w http.ResponseWriter, r *http.Request) {
     if _, idx, e := mg.Send(message); e != nil {
         w.WriteHeader(http.StatusInternalServerError)
         w.Write([]byte("Sorry failed sending email."))
-        fmt.Printf("ERR:email:send(%d): %s", idx, e)
+        fmt.Printf("ERR:email:send(%d): %s\n", idx, e)
         return
     }
     w.Write([]byte("Sent email."))
