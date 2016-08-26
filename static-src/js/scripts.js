@@ -13,10 +13,10 @@
 		$('<div class="success"></div>').hide().appendTo('.newsletter');
 		$('#newsletter-form').validate({
 			rules: {
-				newsletter_email: { required: true, email: true }
+				email: { required: true, email: true }
 			},
 			messages: {
-				newsletter_email: {
+				email: {
 					required: 'Email address is required',
 					email: 'Email address is not valid'
 				}
@@ -31,7 +31,7 @@
 				$.post($(form).attr('action'), $(form).serialize(), function(data){
 					$('.newsletter').find('.spinner').animate({opacity: 0}, function(){
 						$(this).hide();
-						$('.newsletter').find('.success').show().html('<i class="icon ion-ios7-checkmark-outline"></i> Thank you for subscribing!').animate({opacity: 1});
+						$('.newsletter').find('.success').show().html('<i class="icon ion-ios7-checkmark-outline"></i> Thank you for contacting!').animate({opacity: 1});
 					});
 				});
 				return false;
