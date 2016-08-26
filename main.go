@@ -4,18 +4,22 @@
 package main
 
 import (
+    "os"
 	"net/http"
 	"fmt"
 	"flag"
-	"github.com/unrolled/secure"
+    "gopkg.in/mailgun/mailgun-go.v1"
 )
 
 var (
 	verbose bool
 )
 
-func email(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+func email(w http.ResponseWriter, r *http.Request) {    
+    mg := mailgun.NewMailgun(os.Getenv("MAILGUN_DOMAIN"), os.Getenv("MAILGUN_APIKEY"), os.Getenv("MAILGUN_PUBLICAPIKEY"))
+    message := mailgun.NewMessage("noreply@rootdev.nl", "Contact request", "Hello from Mailgun Go!", "rootdev@gmail.com")
+
+    mg.Send(message)
 }
 
 func main() {
@@ -23,25 +27,14 @@ func main() {
 	flag.BoolVar(&verbose, "v", false, "Verbose-mode (log more)")
 	flag.Parse()
 
-	secureMiddleware := secure.New(secure.Options{
-        AllowedHosts:          []string{"rootdev.nl"},
-        STSSeconds:            315360000,
-        STSIncludeSubdomains:  true,
-        STSPreload:            true,
-        FrameDeny:             true,
-        ContentTypeNosniff:    true,
-        BrowserXssFilter:      true,
-        ContentSecurityPolicy: "default-src 'self'",
-    })
-
-	fs := http.FileServer(http.Dir("static"))
-  	http.Handle("/", secureMiddleware.Handler(fs))
-    http.HandleFunc("/action/email", secureMiddleware.Handler(email))
+	fs := http.FileServer(http.Dir("build"))
+  	http.Handle("/", fs)
+    http.HandleFunc("/action/email", email)
 
     if verbose {
 	    fmt.Printf("Listening on %s\n", listen)
 	}
-    if e := http.ListenAndServeTLS(listen, "tls/server.crt", "tls/server.key", app); e != nil {
+    if e := http.ListenAndServe(listen, nil); e != nil {
     	panic(e)
     }
 }

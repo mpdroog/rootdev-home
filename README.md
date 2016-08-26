@@ -13,3 +13,12 @@ After that the site is offered through a custom self-written Go server.
  of security issues lately;
 * Less code == Less security issues, only have to watch the Go security announcements
  (and those are small and few);
+
+Note on listener:
+The server by default listens on `*:8022` to the world. So a proxy in front is necessary
+to make it available on port 80.
+
+Environment variables:
+* MAILGUN_DOMAIN
+* MAILGUN_APIKEY
+* MAILGUN_PUBLICAPIKEY
