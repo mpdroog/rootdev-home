@@ -18,6 +18,12 @@ Note on listener:
 The server by default listens on `*:8022` to the world. So a proxy in front is necessary
 to make it available on port 80.
 
+Running under Docker:
+`./compile.sh
+docker build .
+docker images
+docker run --rm -p 8022:8022 LATESTIMAGE`
+
 Environment variables:
 * MAILGUN_DOMAIN
 * MAILGUN_APIKEY
