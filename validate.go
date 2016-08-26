@@ -9,7 +9,7 @@ import (
 
 type Email struct {
     Body string
-    Email string `validate:"email"`
+    Email string `valid:"email"`
 }
 
 // https://github.com/asaskevich/govalidator/blob/136d678f787d7907b57e992f97346acc83034a57/patterns.go
