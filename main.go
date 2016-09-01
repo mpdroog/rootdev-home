@@ -15,6 +15,9 @@ import (
 
 var (
 	verbose bool
+    mailgunDomain string
+    mailgunApi string
+    mailgunApiPub string
 )
 
 func email(w http.ResponseWriter, r *http.Request) {    
@@ -33,7 +36,7 @@ func email(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    mg := mailgun.NewMailgun(os.Getenv("MAILGUN_DOMAIN"), os.Getenv("MAILGUN_APIKEY"), os.Getenv("MAILGUN_PUBLICAPIKEY"))
+    mg := mailgun.NewMailgun(mailgunDomain, mailgunApi, mailgunApiPub)
     message := mailgun.NewMessage("noreply@rootdev.nl", "Contact request", "From=" + msg.Email + "\n\n" + msg.Body, "rootdev@gmail.com")
     if _, idx, e := mg.Send(message); e != nil {
         w.WriteHeader(http.StatusInternalServerError)
@@ -45,9 +48,26 @@ func email(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	listen := ":8022"
+	listen := ":8080"
 	flag.BoolVar(&verbose, "v", false, "Verbose-mode (log more)")
 	flag.Parse()
+
+    mailgunDomain = os.Getenv("MAILGUN_DOMAIN")
+    mailgunApi = os.Getenv("MAILGUN_APIKEY")
+    mailgunApiPub = os.Getenv("MAILGUN_PUBLICAPIKEY")
+
+    if mailgunDomain == "" {
+        fmt.Printf("ERR:main:env: Missing MAILGUN_DOMAIN")
+        return
+    }
+    if mailgunApi == "" {
+        fmt.Printf("ERR:main:env: Missing MAILGUN_APIKEY")
+        return
+    }
+    if mailgunApiPub == "" {
+        fmt.Printf("ERR:main:env: Missing MAILGUN_PUBLICAPIKEY")
+        return
+    }
 
 	fs := http.FileServer(http.Dir("build"))
   	http.Handle("/", fs)
