@@ -33,14 +33,16 @@
 					<p class="form-field">
 						<textarea style="width: 580px; height: 200px" name="body" placeholder="Some awesome thing you want to tell me :)"></textarea>
 					</p>
-					<p class="form-field">
-						<label for="newsletter_email" class="visually-hidden">Your email address</label>
-						<i class="icon ion-paper-airplane" aria-hidden="true"></i>
-						<input type="text" name="email" id="newsletter_email" value="" placeholder="Your email address" />
-					</p>
-					<p class="form-submit">
-						<input type="submit" name="newsletter_submit" id="newsletter_submit" value="Get In Contact" />
-					</p>
+					<div style="position:relative">
+						<p class="form-field">
+							<label for="newsletter_email" class="visually-hidden">Your email address</label>
+							<i class="icon ion-paper-airplane" aria-hidden="true"></i>
+							<input type="text" name="email" id="newsletter_email" value="" placeholder="Your email address" />
+						</p>
+						<p class="form-submit">
+							<input type="submit" name="newsletter_submit" id="newsletter_submit" value="Get In Contact" />
+						</p>
+					</div>
 				</form>
 			</div>
 
@@ -122,6 +124,15 @@
 							<p>We believe in isolating software for easier deployments and easier maintenance.</p>
 						</div>
 					</div>
+                    <div class="row team-member">
+                            <div class="one-third team-photo">
+                                <img src="images/npm.png" alt="NPM" />
+                            </div>
+                            <div class="two-thirds team-desc">
+                                <h2><a href="https://www.npmjs.com/~rootdev">npmjs.com/~rootdev</a></h2>
+                                <p>And some occasional contributions to the NodeJS community.</p>
+                            </div>
+                    </div>
 					<div class="row team-member">
 						<div class="one-third team-photo">
 							<img src="images/linkedin.png" alt="LinkedIn" />
@@ -147,13 +158,13 @@
 					<!-- Contact details -->
 					<div class="row">
 						<div class="one-half">
-							<h2><i class="icon ion-ios7-telephone"></i>Phone</h2>
+							<h2><i class="icon ion-ios-telephone"></i>Phone</h2>
 							<p>Mobile: (+31) 6 13 99 09 98</p>
-							<h2><i class="icon ion-paper-airplane"></i>Email</h2>
+							<h2><i class="icon ion-ios-email"></i>Email</h2>
 							<p>rootdev@gmail.com</p>
 						</div>
 						<div class="one-half">
-							<h2><i class="icon ion-ios7-location"></i>Address</h2>
+							<h2><i class="icon ion-navigate"></i>Address</h2>
 							<p>Dorpsstraat 236a<br /> Obdam, The Netherlands<br /> 1713HP</p>
 						</div>
 					</div>
