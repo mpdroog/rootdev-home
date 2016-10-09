@@ -9,5 +9,7 @@ cd static-src
 node_modules/gulp/bin/gulp.js
 cd -
 
-docker build . -t "mpdroog/rootdev"
-docker push mpdroog/rootdev
+COMMIT=$(git rev-parse HEAD)
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+docker build . -t "mpdroog/rootdev" --build-arg GIT_COMMIT="$BRANCH-$COMMIT"
+echo "docker push mpdroog/rootdev"
