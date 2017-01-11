@@ -8,8 +8,8 @@ import (
 )
 
 type Email struct {
-	Body  string `valid:"nonzero"`
-	Email string `valid:"nonzero,email"`
+	Body  string `validate:"nonzero"`
+	Email string `validate:"nonzero,email"`
 }
 
 // https://github.com/asaskevich/govalidator/blob/136d678f787d7907b57e992f97346acc83034a57/patterns.go

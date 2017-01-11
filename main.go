@@ -24,6 +24,10 @@ var (
 
 func emailDecode(r *http.Request) (Email, error) {
 	msg := Email{}
+
+	if r.Body == nil {
+		return msg, fmt.Errorf("Empty body")
+	}
 	if e := r.ParseForm(); e != nil {
 		return msg, e
 	}
@@ -31,7 +35,7 @@ func emailDecode(r *http.Request) (Email, error) {
 	if e := decode.Decode(&msg, r.PostForm); e != nil {
 		return msg, e
 	}
-	if e := validator.NewValidator().Validate(msg); e != nil {
+	if e := validator.Validate(msg); e != nil {
 		return msg, e
 	}
 	return msg, nil
