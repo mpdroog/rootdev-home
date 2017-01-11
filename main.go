@@ -51,7 +51,7 @@ func email(w http.ResponseWriter, r *http.Request) {
 	}
 
 	mg := mailgun.NewMailgun(mailgunDomain, mailgunApi, mailgunApiPub)
-	message := mailgun.NewMessage("noreply@rootdev.nl", "Contact request", "From="+msg.Email+"\n\n"+msg.Body, "rootdev@gmail.com")
+	message := mailgun.NewMessage("noreply@rootdev.nl", "Contact request", "From "+msg.Email+"\n\n"+msg.Body, "rootdev@gmail.com")
 
 	if _, idx, e := mg.Send(message); e != nil {
 		w.WriteHeader(http.StatusInternalServerError)
