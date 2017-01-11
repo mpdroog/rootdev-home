@@ -33,6 +33,11 @@
 						$(this).hide();
 						$('.newsletter').find('.success').show().html('<i class="icon ion-ios7-checkmark-outline"></i> Thank you for contacting!').animate({opacity: 1});
 					});
+				}).fail(function(res) {
+					$('.newsletter').find('.spinner').animate({opacity: 0}, function(){
+						$(this).hide();
+						$('.newsletter').find('.success').show().html('<i class="icon ion-ios7-checkmark-outline"></i> Sorry, failed contacting.').animate({opacity: 1});
+					});
 				});
 				return false;
 			}
