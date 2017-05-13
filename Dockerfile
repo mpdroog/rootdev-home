@@ -10,5 +10,5 @@ LABEL git-commit=$GIT_COMMIT
 LABEL traefik.backend=rootdev
 LABEL traefik.frontend.rule=Host:rootdev.nl
 
-EXPOSE 8080
+EXPOSE 80
 ENTRYPOINT ["/rootdev"]
