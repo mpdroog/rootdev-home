@@ -3,10 +3,11 @@ package main
 import (
   "net/http"
   "strings"
+  "strconv"
   "fmt"
 )
 
-func config(node string) string {
+func config(node string, offset int) string {
 raw := `#cloud-config
 
 users:
@@ -50,6 +51,7 @@ write_files:
       -A INPUT -p tcp -m state --syn --state NEW --dport 2017 -m limit --limit 1/minute --limit-burst 1 -j ACCEPT
       -A INPUT -p tcp -m state --syn --state NEW --dport 2017 -j DROP
 
+      -A INPUT -p tcp -m tcp --dport 2379 -j ACCEPT
       -A INPUT -p tcp -m tcp --dport 8989 -j ACCEPT
       -A INPUT -p tcp -m tcp --dport 26257 -j ACCEPT
 
@@ -65,7 +67,7 @@ coreos:
     advertise-client-urls: "http://$public_ipv4:2379"
     initial-advertise-peer-urls: "http://$private_ipv4:2380"
   locksmith:
-    window_start: "10:00"
+    window_start: "{hour_start}:00"
     window_length: "1h"
   update:
     reboot-strategy: "etcd-lock"
@@ -96,31 +98,35 @@ coreos:
       FreeBind=true
       Accept=yes
   - name: iptables-restore.service
+    command: restart
     enable: true`
 
   hostname := node + ".rootdev.nl"
+  raw = strings.Replace(raw, "{hour_start}", strconv.Itoa(10+offset), 1)
   raw = strings.Replace(raw, "{hostname}", hostname, 1)
   return raw
 }
 
-func nodeName(r *http.Request) (string) {
-  urls := map[string]bool{
-    "ams1": true,
-    "nyc1": true,
-    "fra1": true,
+func nodeName(r *http.Request) (string, int) {
+  urls := map[string]int{
+    "ams1": 0,
+    "nyc1": 1,
+    "fra1": 2,
   }
   name := r.URL.Query().Get("node")
   if name == "" {
-    return ""
+    return "", 0
   }
-  if _, ok := urls[name]; !ok {
-    return "";
+
+  offset, ok := urls[name]
+  if !ok {
+    return "", 0
   }
-  return name
+  return name, offset
 }
 
 func cloudinit(w http.ResponseWriter, r *http.Request) {
-  node := nodeName(r)
+  node, offset := nodeName(r)
   if node == "" {
     w.WriteHeader(http.StatusUnprocessableEntity)
     w.Write([]byte("Unsupported ?node"))
@@ -128,7 +134,7 @@ func cloudinit(w http.ResponseWriter, r *http.Request) {
     return
   }
 
-  raw := config(node)
+  raw := config(node, offset)
   if r.URL.Path == "/cloud/init" {
     w.Write([]byte(raw))
   } else if r.URL.Path == "/cloud/ipxe" {
