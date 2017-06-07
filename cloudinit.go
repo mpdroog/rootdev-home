@@ -45,8 +45,10 @@ write_files:
       :OUTPUT ACCEPT [0:0]
       -A INPUT -i lo -j ACCEPT
       -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-      -A INPUT -p tcp -m tcp --dport 2017 -j ACCEPT
       -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+
+      -A INPUT -p tcp -m state --syn --state NEW --dport 2017 -m limit --limit 1/minute --limit-burst 1 -j ACCEPT
+      -A INPUT -p tcp -m state --syn --state NEW --dport 2017 -j DROP
 
       -A INPUT -p tcp -m tcp --dport 8989 -j ACCEPT
       -A INPUT -p tcp -m tcp --dport 26257 -j ACCEPT
