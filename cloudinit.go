@@ -75,15 +75,15 @@ coreos:
   - name: sethostname.service
     command: start
     content: |
-    [Unit]
+      [Unit]
       Description=Set Hostname Workaround https://github.com/coreos/bugs/issues/1272
 
-    [Service]
+      [Service]
       Type=oneshot
       ExecStart=/bin/sh -c "/usr/bin/hostnamectl set-hostname {hostname}"
 
       [Install]
-        WantedBy=local.target
+      WantedBy=local.target
 
   - name: sshd.socket
     command: restart
