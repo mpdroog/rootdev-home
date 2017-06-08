@@ -149,8 +149,8 @@ coreos:
     enable: true`
 
   hostname := node + ".rootdev.nl"
-  raw = strings.Replace(raw, "{hour_start}", strconv.Itoa(10+offset), 1)
-  raw = strings.Replace(raw, "{hostname}", hostname, 1)
+  raw = strings.Replace(raw, "{hour_start}", strconv.Itoa(10+offset), -1)
+  raw = strings.Replace(raw, "{hostname}", hostname, -1)
   return raw
 }
 
