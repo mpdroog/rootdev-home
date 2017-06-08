@@ -43,29 +43,76 @@ write_files:
       *filter
       :INPUT DROP [0:0]
       :FORWARD DROP [0:0]
-      :OUTPUT ACCEPT [0:0]
+      :OUTPUT DROP [0:0]
       -A INPUT -i lo -j ACCEPT
       -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
-      -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 
+      # SSH one login per minute
       -A INPUT -p tcp -m state --syn --state NEW --dport 2017 -m limit --limit 1/minute --limit-burst 1 -j ACCEPT
       -A INPUT -p tcp -m state --syn --state NEW --dport 2017 -j DROP
 
-      -A INPUT -p tcp -m tcp --dport 2379 -j ACCEPT
+      # Public services
+      -A INPUT -p tcp -m tcp --dport 80 -j ACCEPT
       -A INPUT -p tcp -m tcp --dport 8989 -j ACCEPT
       -A INPUT -p tcp -m tcp --dport 26257 -j ACCEPT
+      # Etcd
+      -A INPUT -i eth0 -p tcp -s fra1.rootdev.nl,127.0.0.1 --dport 4001 -j ACCEPT
+      -A INPUT -i eth0 -p tcp -s ams1.rootdev.nl,127.0.0.1 --dport 2379 -j ACCEPT
+      -A INPUT -i eth0 -p tcp -s nyc1.rootdev.nl,127.0.0.1 --dport 2380 -j ACCEPT
 
+      # ICMP
       -A INPUT -p icmp -m icmp --icmp-type 0 -j ACCEPT
       -A INPUT -p icmp -m icmp --icmp-type 3 -j ACCEPT
       -A INPUT -p icmp -m icmp --icmp-type 11 -j ACCEPT
+
+      # Allow reply on public services
+      -A OUTPUT -o eth0 -p tcp --sport 80 -m state --state ESTABLISHED -j ACCEPT
+      -A OUTPUT -o eth0 -p tcp --sport 2017 -m state --state ESTABLISHED -j ACCEPT
+      -A OUTPUT -o eth0 -p tcp --sport 8989 -m state --state ESTABLISHED -j ACCEPT
+      -A OUTPUT -o eth0 -p tcp --sport 26257 -m state --state ESTABLISHED -j ACCEPT
+      # Etcd reply
+      -A OUTPUT -o eth0 -p tcp --sport 4001 -m state --state ESTABLISHED -j ACCEPT
+      -A OUTPUT -o eth0 -p tcp --sport 2379 -m state --state ESTABLISHED -j ACCEPT
+      -A OUTPUT -o eth0 -p tcp --sport 2380 -m state --state ESTABLISHED -j ACCEPT
+
+      # Allow DNS lookups
+      -A OUTPUT -p udp --dport 53 -j ACCEPT
+      # Allow CF/Mailgun/monitoring site's
+      -A OUTPUT -p tcp --dport 443 -j ACCEPT
+      -A OUTPUT -p tcp --dport 80 -j ACCEPT
+
+      # DNSproxy peering
+      -A OUTPUT -p tcp -d fra1.rootdev.nl --dport 8989 -j ACCEPT
+      -A OUTPUT -p tcp -d ams1.rootdev.nl --dport 8989 -j ACCEPT
+      -A OUTPUT -p tcp -d nyc1.rootdev.nl --dport 8989 -j ACCEPT
+      # CockroachDB outbound
+      -A OUTPUT -p tcp -d fra1.rootdev.nl --dport 26257 -j ACCEPT
+      -A OUTPUT -p tcp -d ams1.rootdev.nl --dport 26257 -j ACCEPT
+      -A OUTPUT -p tcp -d nyc1.rootdev.nl --dport 26257 -j ACCEPT
+
+      # Etcd outbound
+      -A OUTPUT -p tcp -d fra1.rootdev.nl --dport 4001 -j ACCEPT
+      -A OUTPUT -p tcp -d ams1.rootdev.nl --dport 4001 -j ACCEPT
+      -A OUTPUT -p tcp -d nyc1.rootdev.nl --dport 4001 -j ACCEPT
+
+      -A OUTPUT -p tcp -d fra1.rootdev.nl --dport 2379 -j ACCEPT
+      -A OUTPUT -p tcp -d ams1.rootdev.nl --dport 2379 -j ACCEPT
+      -A OUTPUT -p tcp -d nyc1.rootdev.nl --dport 2379 -j ACCEPT
+
+      -A OUTPUT -p tcp -d fra1.rootdev.nl --dport 2380 -j ACCEPT
+      -A OUTPUT -p tcp -d ams1.rootdev.nl --dport 2380 -j ACCEPT
+      -A OUTPUT -p tcp -d nyc1.rootdev.nl --dport 2380 -j ACCEPT
       COMMIT
 
 coreos:
   etcd2:
-    discovery: https://discovery.etcd.io/c0ee0a7bccfa83c349330891be0e3004
-    # multi-region and multi-cloud deployments need to use $public_ipv4
-    advertise-client-urls: "http://$public_ipv4:2379"
-    initial-advertise-peer-urls: "http://$private_ipv4:2380"
+    discovery-srv: "rootdev.nl"
+    initial-advertise-peer-urls: "http://{hostname}:2380"
+    initial-cluster-token: "etcd.rootdev.nl"
+    initial-cluster-state: "new"
+    advertise-client-urls: "http://{hostname}:2379"
+    listen-client-urls: "http://{hostname}:2379"
+    listen-peer-urls: "http://{hostname}:2380"
   locksmith:
     window_start: "{hour_start}:00"
     window_length: "1h"
