@@ -6,7 +6,7 @@ var jade = require('gulp-jade');
 var uglify = require('gulp-uglify');
 var crypto = require('crypto');
 var fs = require('fs');
-var zopfli = require("gulp-zopfli");
+//var zopfli = require("gulp-zopfli");
 var merge = require('merge-stream');
 var util = require('gulp-util');
 var htmlmin = require('gulp-htmlmin');
@@ -51,6 +51,6 @@ gulp.task('compress', ['static', 'js', 'css'], function() {
 
 var tasks = ['static', 'js', 'css'];
 if (util.env.deploy) {
-  tasks.push('compress');
+  //tasks.push('compress');
 }
 gulp.task('default', tasks);
