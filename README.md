@@ -14,17 +14,3 @@ After that the site is offered through a custom self-written Go server.
 * Less code == Less security issues, only have to watch the Go security announcements
  (and those are small and few);
 
-Note on listener:
-The server by default listens on `*:8022` to the world. So a proxy in front is necessary
-to make it available on port 80.
-
-Running under Docker:
-`./compile.sh
-docker build .
-docker images
-docker run --rm -p 8022:8022 LATESTIMAGE`
-
-Environment variables:
-* MAILGUN_DOMAIN
-* MAILGUN_APIKEY
-* MAILGUN_PUBLICAPIKEY
