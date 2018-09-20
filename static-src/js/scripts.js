@@ -85,11 +85,9 @@
 			$(this).parent().addClass('active');
 			e.preventDefault();
 
-			// Fix the map in the hidden div
-			if ( $('#map-canvas').length > 0 ) {
-				google.maps.event.trigger(map, 'resize');
-				map.setCenter(mapLatLng);
-			}
+                        if ( $('#map-canvas').length > 0 ) {
+                            mymap._onResize();
+                        }
 
 			// Fix background
 			$('.left-wrap .bg').backstretch('resize');
@@ -97,46 +95,14 @@
 		});
 	}
 
+        var mymap = L.map('map-canvas', {attributionControl: false});
 	// Create and initialize the Google Map object
 	function jgtGoogleMap(){
-
-		// Change the default values according to your needs.
-		// mapLat and mapLong represents the latitude and longitude coordinates of your location.
-		// mapInfo represents the info which is displayed when the marker is clicked
-		var mapLat = 52.680125,
-			mapLong = 4.914644,
-			mapInfo = '<div id="content">HalfTime Studio</div>';
-
-		// Create a LatLng object
-		mapLatLng = new google.maps.LatLng(mapLat, mapLong);
-
-		// Create a Map options object
-		var mapOptions = {
-			zoom: 14,
-			center: mapLatLng,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
-		
-		// Create a new map instance
-		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-		// Center the map when the window resizes 
-		google.maps.event.addDomListener(window, 'resize', function() {
-			map.setCenter(mapLatLng);
-		});
-
-		// Add an info window and a marker. Open info window when the marker is clicked
-		var infowindow = new google.maps.InfoWindow({
-	   		content: mapInfo
-		});
-		var marker = new google.maps.Marker({
-			position: mapLatLng,
-			map: map
-		});
-		google.maps.event.addListener(marker, 'click', function() {
-			infowindow.open(map, marker);
-		});
-
+            mymap.setView([52.662031, 4.817720], 15);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: ''
+            }).addTo(mymap);
+            L.marker([52.662031, 4.817720]).addTo(mymap);
 	}
 
 })(jQuery);

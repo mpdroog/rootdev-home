@@ -65,8 +65,8 @@
 				<h3 class="visually-hidden">Navigation</h3>
 				<ul id="menu">
 					<li><a href="#about" title="About">About</a></li>
-					<li><a href="#contributions" title="Team">Contributions</a></li>
-					<li><a href="#contacts" title="Contacts">Contacts</a></li>
+					<li><a href="#contributions" title="Contributions">Contributions</a></li>
+					<li><a href="#contact" title="Contact">Contact</a></li>
 				</ul>
 			</nav>
 
@@ -94,6 +94,15 @@
 							<p><span class="highlight">Software Development</span> writing backend- and frontend software. Having multiple years of experience with JavaScript, PHP, NodeJS(unfortunately :p), Go and a passion to write CSS/HTML on the frontend with Bootstrap :)</p>
 						</div>
 					</div>
+
+                                       <div class="service">
+                                                <div class="service-icon">
+                                                        <i class="icon ion-ios-cloud-download" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="service-desc">
+                                                        <p><span class="highlight">Usenet.Today</span> offering Usenet access without any nonsense.</p>
+                                                </div>
+                                        </div>
 				</section>
 
 				<!-- Section Team -->
@@ -113,15 +122,6 @@
 								<li>SMTPw, never lose an email when the SMTP-server fails;</li>
 								<li>Deltareport, diff one or more files and queue for processing;</li>
 							</ul>
-						</div>
-					</div>
-					<div class="row team-member">
-						<div class="one-third team-photo">
-							<img src="images/docker.png" alt="Docker Hub" />
-						</div>
-						<div class="two-thirds team-desc">
-							<h2><a href="https://hub.docker.com/r/mpdroog">hub.docker.com/r/mpdroog</a></h2>
-							<p>We believe in isolating software for easier deployments and easier maintenance.</p>
 						</div>
 					</div>
                     <div class="row team-member">
@@ -149,8 +149,8 @@
 				</section>
 
 				<!-- Section Contacts -->
-				<section id="contacts" class="main-section" style="display:none">
-					<h1>Contacts</h1>
+				<section id="contact" class="main-section" style="display:none">
+					<h1>Contact</h1>
 
 					<!-- Google map -->
 					<div id="map-canvas" class="google-map"></div>
@@ -165,7 +165,7 @@
 						</div>
 						<div class="one-half">
 							<h2><i class="icon ion-navigate"></i>Address</h2>
-							<p>Dorpsstraat 236a<br /> Obdam, The Netherlands<br /> 1713HP</p>
+							<p>Citrien 8<br /> Heerhugowaard, The Netherlands<br /> 1703BT</p>
 						</div>
 					</div>
 
@@ -181,7 +181,6 @@
 					<li><img width="32" src="images/go.png" alt="Go(lang)" /></li>
 					<li><img width="32" src="images/php.png" alt="PHP" /></li>
 					<li><img width="32" src="images/linux.png" alt="GNU/Linux" /></li>
-					<li><img width="32" src="images/coreos.png" alt="CoreOS" /></li>
 				</ul>
 					
 			</footer>
@@ -190,7 +189,12 @@
 
 	</div>
 	<!-- END RIGHT SIDE -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUI0oXDUw8vCwnAo71FGoTyhKT4puRAIk"></script>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+   crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+   integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+   crossorigin=""></script>
 	<script type="text/javascript" src="app.js"></script>
 </body>
 </html>
