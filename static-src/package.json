@@ -19,6 +19,7 @@
   "private": true,
   "license": "Closed",
   "dependencies": {
+    "internal": "^1.0.8",
     "natives": "^1.1.5"
   }
 }
