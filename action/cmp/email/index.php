@@ -3,6 +3,7 @@ require ROOT . "/action/vendor/core/Safe.php";
 use core\Taint;
 use core\Db;
 use core\Safe;
+use core\Res;
 
 class Input {
   public $body;
