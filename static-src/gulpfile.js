@@ -40,7 +40,13 @@ gulp.task('static', function() {
   var imgs = gulp.src([
     'images/**/*'
   ]).pipe(gulp.dest('../build/images'));
-  return merge(base, imgs);
+  var fa = gulp.src([
+    'fa/**/*'
+  ]).pipe(gulp.dest('../build/fa'));
+  var pub = gulp.src([
+    'leaflet*.*',
+  ]).pipe(gulp.dest('../build'));
+  return merge(base, imgs, fa, pub);
 });
 
 gulp.task('compress', ['static', 'js', 'css'], function() {

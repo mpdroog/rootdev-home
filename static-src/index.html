@@ -6,9 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />	
 	
 	<!-- Included CSS files -->
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,700,700italic" rel="stylesheet" type="text/css" />
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.css" rel="stylesheet" type="text/css" />
 	<link href="app.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" href="/fa/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -29,19 +28,18 @@
 
 			<!-- Newsletter form -->
 			<div class="newsletter">
-				<form action="/action/email" method="post" id="newsletter-form">
-					<p class="form-field">
+				<form action="/action/email" method="post" id="newsletter-form" class="form-horizontal">
+					<div class="form-group form-field">
 						<textarea class="body" name="body" placeholder="Some awesome thing you want to tell me :)"></textarea>
-					</p>
+					</div>
 					<div class="pr">
-						<p class="form-field">
-							<label for="newsletter_email" class="visually-hidden">Your email address</label>
-							<i class="icon ion-paper-airplane" aria-hidden="true"></i>
-							<input type="text" name="email" id="newsletter_email" value="" placeholder="Your email address" />
-						</p>
-						<p class="form-submit">
-							<input type="submit" id="newsletter_submit" value="Get In Contact" />
-						</p>
+					<p class="form-field">
+					<label for="newsletter_email" class="visually-hidden">Your email address</label>
+					<input type="text" name="email" id="newsletter_email" value="" placeholder="Your email address" />
+					</p>
+					<p class="form-submit">
+						<input type="submit" id="newsletter_submit" value="Get In Contact" />
+					</p>
 					</div>
 				</form>
 			</div>
@@ -88,7 +86,7 @@
 					<!-- Services list -->
 					<div class="service">
 						<div class="service-icon">
-							<i class="icon ion-settings" aria-hidden="true"></i>
+							<i class="fa fa-cog fa-5x" aria-hidden="true"></i>
 						</div>
 						<div class="service-desc">
 							<p><span class="highlight">Software Development</span> writing backend- and frontend software. Having multiple years of experience with JavaScript, PHP, NodeJS(unfortunately :p), Go and a passion to write CSS/HTML on the frontend with Bootstrap :)</p>
@@ -97,7 +95,7 @@
 
                                        <div class="service">
                                                 <div class="service-icon">
-                                                        <i class="icon ion-ios-cloud-download" aria-hidden="true"></i>
+                                                        <i class="fa fa-cloud-download fa-5x" aria-hidden="true"></i>
                                                 </div>
                                                 <div class="service-desc">
                                                         <p><span class="highlight">Usenet.Today</span> offering Usenet access without any nonsense.</p>
@@ -158,13 +156,13 @@
 					<!-- Contact details -->
 					<div class="row">
 						<div class="one-half">
-							<h2><i class="icon ion-ios-telephone"></i>Phone</h2>
+							<h2><i class="fa fa-phone"></i>&nbsp;Phone</h2>
 							<p>Mobile: (+31) 6 13 99 09 98</p>
-							<h2><i class="icon ion-ios-email"></i>Email</h2>
+							<h2><i class="fa fa-envelope"></i>&nbsp;Email</h2>
 							<p>rootdev@gmail.com</p>
 						</div>
 						<div class="one-half">
-							<h2><i class="icon ion-navigate"></i>Address</h2>
+							<h2><i class="fa fa-map"></i>&nbsp;Address</h2>
 							<p>Citrien 8<br /> Heerhugowaard, The Netherlands<br /> 1703BT</p>
 						</div>
 					</div>
@@ -189,12 +187,8 @@
 
 	</div>
 	<!-- END RIGHT SIDE -->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
-   integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
-   crossorigin=""/>
-        <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
-   integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
-   crossorigin=""></script>
+        <link rel="stylesheet" href="/leaflet.css" />
+        <script src="/leaflet.js"></script>
 	<script type="text/javascript" src="app.js"></script>
 </body>
 </html>
