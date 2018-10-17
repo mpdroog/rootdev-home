@@ -31,9 +31,9 @@
 			<div class="newsletter">
 				<form action="/action/email" method="post" id="newsletter-form">
 					<p class="form-field">
-						<textarea style="width: 580px; height: 200px" name="body" placeholder="Some awesome thing you want to tell me :)"></textarea>
+						<textarea class="body" name="body" placeholder="Some awesome thing you want to tell me :)"></textarea>
 					</p>
-					<div style="position:relative">
+					<div class="pr">
 						<p class="form-field">
 							<label for="newsletter_email" class="visually-hidden">Your email address</label>
 							<i class="icon ion-paper-airplane" aria-hidden="true"></i>
@@ -49,7 +49,7 @@
 		</div>
 
 		<!-- Background image and overlay -->
-		<div class="bg" style="position: absolute; z-index: -2; background: none;"><div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 100%; width: 100%; z-index: -999998; position: absolute;"><img src="images/bg.jpg" style="position: absolute; margin: 0px; padding: 0px; border: none; width: 100%; height: 100%; max-height: none; max-width: none; z-index: -999999; left: -22.591px; top: 0px;"></div></div>
+		<div class="bg bg-pos"><div class="backstretch backstretch-bg"><img src="images/bg.jpg" class="bg-img"></div></div>
 		<div class="bg-overlay"></div>
 
 	</div>
@@ -106,7 +106,7 @@
 				</section>
 
 				<!-- Section Team -->
-				<section id="contributions" class="main-section" style="display:none">
+				<section id="contributions" class="main-section dp">
 					<h1>Contributions</h1>
 					<p>RootDev is built around open-source. As so we try to share what we can.</p>
 					
@@ -149,7 +149,7 @@
 				</section>
 
 				<!-- Section Contacts -->
-				<section id="contact" class="main-section" style="display:none">
+				<section id="contact" class="main-section dp">
 					<h1>Contact</h1>
 
 					<!-- Google map -->

@@ -1042,3 +1042,36 @@ h3 .icon {
 		margin-left: 0;		
 	}
 }
+
+/* overrides */
+.body {
+  width: 580px;
+  height: 200px
+}
+.pr {
+  position: relative;;
+}
+.bg-pos {
+  position: absolute;
+  z-index: -2;
+  background: none;
+}
+.backstretch-bg {
+  left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 100%; width: 100%; z-index: -999998; position: absolute;
+}
+.bg-img {
+  position: absolute;
+  margin: 0px;
+  padding: 0px;
+  border: none;
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  max-width: none;
+  z-index: -999999;
+  left: -22.591px;
+  top: 0px;
+}
+.dp {
+  display: none;
+}
