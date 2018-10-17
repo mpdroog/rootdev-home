@@ -2,11 +2,9 @@ var gulp = require('gulp');
 var uncss = require('gulp-uncss');
 var minifyCSS = require('gulp-minify-css');
 var concat = require('gulp-concat');
-var jade = require('gulp-jade');
 var uglify = require('gulp-uglify');
 var crypto = require('crypto');
 var fs = require('fs');
-//var zopfli = require("gulp-zopfli");
 var merge = require('merge-stream');
 var util = require('gulp-util');
 var htmlmin = require('gulp-htmlmin');
@@ -46,7 +44,7 @@ gulp.task('static', function() {
 });
 
 gulp.task('compress', ['static', 'js', 'css'], function() {
-  return gulp.src(['../build/**/*']).pipe(zopfli()).pipe(gulp.dest('../build'));
+  return gulp.src(['../build/**/*']).pipe(gulp.dest('../build'));
 });
 
 var tasks = ['static', 'js', 'css'];
