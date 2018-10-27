@@ -3,7 +3,7 @@
   "description": "Static data (HTML+CSS+JS) so we can always be online.",
   "author": "MP Droog <mark@itshosted.nl>",
   "scripts": {
-    "build": "./node_modules/gulp/bin/gulp.js && zopfli --i1000 ../build/*.*"
+    "build": "./node_modules/gulp/bin/gulp.js"
   },
   "devDependencies": {
     "gulp": "*",
@@ -20,6 +20,6 @@
   "license": "Closed",
   "dependencies": {
     "internal": "^1.0.8",
-    "natives": "^1.1.5"
+    "natives": "^1.1.6"
   }
 }
