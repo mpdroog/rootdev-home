@@ -599,7 +599,6 @@ h3 .icon {
 }
 
 #newsletter-form .form-field {
-	margin-right: 175px;
 	position: relative;
 }
 
@@ -724,6 +723,8 @@ h3 .icon {
 /* Services */
 .service-icon {
 	float: left;
+	width: 100px;
+	text-align: center;
 }
 
 .service-icon .icon {
@@ -1041,7 +1042,7 @@ h3 .icon {
 
 /* overrides */
 .body {
-  width: 580px;
+  width: 100%;
   height: 200px
 }
 .pr {
