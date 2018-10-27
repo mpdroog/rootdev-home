@@ -1,13 +1,7 @@
 (function($){
-
-	// Declare global variables
-	var map,
-		mapLatLng;
+	var map, mapLatLng;
 
 	$(document).ready( function(){
-		// Add background image
-		$('.left-wrap .bg').backstretch('images/bg.jpg');
-
 		// Validate newsletter form
 		$('<div class="spinner"><div class="square"></div><div class="square"></div><div class="square"></div><div class="square"></div></div>').hide().appendTo('.newsletter');
 		$('<div class="success"></div>').hide().appendTo('.newsletter');
@@ -43,33 +37,11 @@
 			}
 		});
 
-		// Add tabs functionality to the right side content
 		jgtContentTabs();
-
-		// Load the Google Map object
 		if ( $('#map-canvas').length > 0 ) {
 			jgtGoogleMap();
 		}
-		
-		// Set the minimum height for the right side and bind on resize or orientation change
-		jgtMinHeight();
-		$(window).bind('resize orientationchange', function(){
-			jgtMinHeight();
-		});
-
 	});
-
-	// Set the minimum height for the right side
-	function jgtMinHeight(){
-		var leftWrap = $('.left-wrap'),
-			rightWrap = $('.right-wrap');
-
-		if ( Modernizr.mq('only screen and (max-width: 1200px)') == true ) {
-			rightWrap.css({ 'min-height': $(window).height() - leftWrap.height() });
-		} else {
-			rightWrap.removeAttr('style');
-		}
-	}
 
 	// Add tabs functionality to the right side content
 	function jgtContentTabs(){
@@ -96,7 +68,6 @@
 	}
 
         var mymap = L.map('map-canvas', {attributionControl: false});
-	// Create and initialize the Google Map object
 	function jgtGoogleMap(){
             mymap.setView([52.662031, 4.817720], 15);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {

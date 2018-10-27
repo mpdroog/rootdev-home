@@ -1053,14 +1053,14 @@ h3 .icon {
   background: none;
 }
 .backstretch-bg {
-  left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 100%; width: 100%; z-index: -999998; position: absolute;
+  left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 100%; width: 150%; z-index: -999998; position: absolute;
 }
 .bg-img {
   position: absolute;
   margin: 0px;
   padding: 0px;
   border: none;
-  width: 100%;
+  width: 150%;
   height: 100%;
   max-height: none;
   max-width: none;
