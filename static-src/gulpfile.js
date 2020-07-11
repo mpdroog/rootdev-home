@@ -1,4 +1,5 @@
-var gulp = require('gulp');
+const { series, parallel, src, dest } = require('gulp');
+
 var uncss = require('gulp-uncss');
 var minifyCSS = require('gulp-minify-css');
 var concat = require('gulp-concat');
@@ -8,16 +9,16 @@ var fs = require('fs');
 var merge = require('merge-stream');
 var util = require('gulp-util');
 var htmlmin = require('gulp-htmlmin');
+const gulpif = require('gulp-if');
 
-gulp.task('js', function() {
-  return gulp.src(['js/*.js'])
+function js() {
+  return src('js/*.js')
   .pipe(concat('app.js'))
   .pipe(uglify())
-  .pipe(gulp.dest('../build'));
-});
-
-gulp.task('css', ['static'], function() {
-    var base = gulp.src('css/*.css')
+  .pipe(dest('../build'));
+};
+function css() {
+    var base = src('css/*.css')
     .pipe(concat('app.css'))
     .pipe(uncss({
         ignore: [
@@ -27,34 +28,32 @@ gulp.task('css', ['static'], function() {
         html: ['../build/index.html']
     }))
     .pipe(minifyCSS({'keepSpecialComments': 0}))
-    .pipe(gulp.dest('../build'));
+    .pipe(dest('../build'));
     return base;
-});
-
-gulp.task('static', function() {
-  var base = gulp.src([
+}
+function static() {
+    var base = src([
     'index.html'
   ]).pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
-  .pipe(gulp.dest('../build'));
+  .pipe(dest('../build'));
 
-  var imgs = gulp.src([
+  var imgs = src([
     'images/**/*'
-  ]).pipe(gulp.dest('../build/images'));
-  var fa = gulp.src([
+  ]).pipe(dest('../build/images'));
+  var fa = src([
     'fa/**/*'
-  ]).pipe(gulp.dest('../build/fa'));
-  var pub = gulp.src([
+  ]).pipe(dest('../build/fa'));
+  var pub = src([
     'leaflet*.*',
-  ]).pipe(gulp.dest('../build'));
+  ]).pipe(dest('../build'));
   return merge(base, imgs, fa, pub);
-});
-
-gulp.task('compress', ['static', 'js', 'css'], function() {
-  return gulp.src(['../build/**/*']).pipe(gulp.dest('../build'));
-});
-
-var tasks = ['static', 'js', 'css'];
-if (util.env.deploy) {
-  //tasks.push('compress');
 }
-gulp.task('default', tasks);
+
+function compress() {
+    return src(['../build/**/*']).pipe(dest('../build'));
+}
+
+exports.default = series(
+    parallel(series(static, css), js),
+    compress
+);
