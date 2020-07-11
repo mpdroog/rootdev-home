@@ -4,10 +4,6 @@ var uncss = require('gulp-uncss');
 var minifyCSS = require('gulp-minify-css');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
-var crypto = require('crypto');
-var fs = require('fs');
-var merge = require('merge-stream');
-var util = require('gulp-util');
 var htmlmin = require('gulp-htmlmin');
 const gulpif = require('gulp-if');
 
@@ -31,22 +27,18 @@ function css() {
     .pipe(dest('../build'));
     return base;
 }
-function static() {
-    var base = src([
+function html() {
+  var base = src([
     'index.html'
   ]).pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
   .pipe(dest('../build'));
-
-  var imgs = src([
-    'images/**/*'
-  ]).pipe(dest('../build/images'));
-  var fa = src([
-    'fa/**/*'
-  ]).pipe(dest('../build/fa'));
-  var pub = src([
-    'leaflet*.*',
+  return base;
+}
+function static() {
+  var base = src([
+    'static/**/*'
   ]).pipe(dest('../build'));
-  return merge(base, imgs, fa, pub);
+  return base;
 }
 
 function compress() {
@@ -54,6 +46,6 @@ function compress() {
 }
 
 exports.default = series(
-    parallel(series(static, css), js),
+    parallel(series(html, css), static, js),
     compress
 );

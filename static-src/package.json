@@ -1,26 +1,19 @@
 {
-  "name": "Static.RootDev.nl",
-  "description": "Static data (HTML+CSS+JS) so we can always be online.",
-  "author": "MP Droog <mark@itshosted.nl>",
+  "name": "rootdev.nl",
+  "description": "Pre-build dataset",
+  "author": "MP Droog <rootdev@gmail.com>",
   "scripts": {
     "build": "./node_modules/gulp/bin/gulp.js"
   },
   "devDependencies": {
     "gulp": "*",
     "gulp-concat": "*",
-    "gulp-htmlmin": "^2.0.0",
-    "gulp-jade": "*",
+    "gulp-htmlmin": "*",
     "gulp-minify-css": "*",
     "gulp-uglify": "*",
     "gulp-uncss": "*",
-    "gulp-util": "*",
-    "merge-stream": "*"
+    "gulp-if": "*"
   },
   "private": true,
-  "license": "Closed",
-  "dependencies": {
-    "gulp-if": "^3.0.0",
-    "internal": "^1.0.8",
-    "natives": "^1.1.6"
-  }
+  "license": "Closed"
 }
