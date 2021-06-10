@@ -12,7 +12,7 @@
     "gulp-htmlmin": "*",
     "gulp-minify-css": "*",
     "gulp-purgecss": "^4.0.3",
-    "gulp-uglify": "*",
+    "gulp-uglify": "*"
   },
   "private": true,
   "license": "Closed"
