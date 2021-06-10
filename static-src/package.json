@@ -5,16 +5,14 @@
   "scripts": {
     "build": "./node_modules/gulp/bin/gulp.js"
   },
+
   "devDependencies": {
     "gulp": "*",
     "gulp-concat": "*",
     "gulp-htmlmin": "*",
-    "gulp-if": "*",
     "gulp-minify-css": "*",
-    "gulp-postcss": "^8.0.0",
+    "gulp-purgecss": "^4.0.3",
     "gulp-uglify": "*",
-    "postcss-uncss": "^0.17.0",
-    "uncss": "^0.17.3"
   },
   "private": true,
   "license": "Closed"

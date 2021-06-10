@@ -1,3 +1,4 @@
 .DS_Store
 static-src/node_modules
+static-src/yarn-error.log
 action/vendor

@@ -1,12 +1,10 @@
 const { series, parallel, src, dest } = require('gulp');
 
-var minifyCSS = require('gulp-minify-css');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var htmlmin = require('gulp-htmlmin');
-var postcss = require('gulp-postcss');
-var uncss = require('postcss-uncss');
-const gulpif = require('gulp-if');
+const minifyCSS = require('gulp-minify-css');
+const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const htmlmin = require('gulp-htmlmin');
+const purgecss = require('gulp-purgecss');
 
 function js() {
   return src('js/*.js')
@@ -17,13 +15,13 @@ function js() {
 function css() {
     var base = src('css/*.css')
     .pipe(concat('app.css'))
-    .pipe(postcss([uncss({
+    .pipe(purgecss({
         ignore: [
           /* bootstrap UI */
           ".pull-right",
         ],
-        html: ['../build/index.html']
-    })]))
+        content: ['../build/**/*.html']
+    }))
     .pipe(minifyCSS({'keepSpecialComments': 0}))
     .pipe(dest('../build'));
     return base;

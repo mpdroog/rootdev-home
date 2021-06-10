@@ -14,3 +14,13 @@ After that the site is offered through a custom self-written Go server.
 * Less code == Less security issues, only have to watch the Go security announcements
  (and those are small and few);
 
+Build steps
+```
+npm install -g yarn
+cd static-src
+yarn install
+npm run build
+cd ..
+rm -rf pub
+mv build pub
+```
