@@ -11,8 +11,8 @@
     "gulp-htmlmin": "*",
     "gulp-if": "*",
     "gulp-minify-css": "*",
-    "gulp-uglify": "*",
     "gulp-postcss": "^8.0.0",
+    "gulp-uglify": "*",
     "postcss-uncss": "^0.17.0",
     "uncss": "^0.17.3"
   },
