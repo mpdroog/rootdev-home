@@ -9,6 +9,11 @@ trait ProjectValidators {}
 \core\Taint::init();
 \core\Env::init();
 
+if (! $refok) {
+  \core\Res::error(404);
+  exit("Invalid referer");
+}
+
 $d = sprintf("%s/cmp/%s/index.php", __DIR__, \core\Env::hfastPath());
 if (! file_exists($d)) {
   \core\Res::error(404);
