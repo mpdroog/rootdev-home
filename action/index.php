@@ -7,10 +7,12 @@ require __DIR__ . "/vendor/core/Res.php";
 
 trait ProjectValidators {}
 \core\Taint::init();
+\core\Env::init();
 
-$d = __DIR__ . "/cmp/" . str_replace("..", "", $_CLIENT["path"]) . "/index.php";
+$d = sprintf("%s/cmp/%s/index.php", __DIR__, \core\Env::hfastPath());
 if (! file_exists($d)) {
-  header('HTTP/1.1 404 Not Found');
-  exit("Page not found.");
+  \core\Res::error(404);
+  exit("Page not found - action.");
 }
+
 require $d;
