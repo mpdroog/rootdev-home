@@ -41,6 +41,17 @@ function email(array $curl_post_data) {
   }
 }
 
+$ignores = [
+    "http://talkwithcustomer.com",
+    "http://bit.ly"
+];
+foreach ($ignores as $ignore) {
+  if (strpos($input->body, $ignore) !== false) {
+    Res::error("Please don't spam me..", []);
+    exit;
+  }
+}
+
 email([
   "from" => "robot@rootdev.nl",
   "to" => "rootdev@gmail.com",
