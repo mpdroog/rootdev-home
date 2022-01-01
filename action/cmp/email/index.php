@@ -44,13 +44,17 @@ function email(array $curl_post_data) {
 $ignores = [
     "http://",
     "https://",
-    "www."
+    "www.",
 ];
 foreach ($ignores as $ignore) {
   if (strpos($input->body, $ignore) !== false) {
-    Res::error("Please don't spam me..", []);
+    Res::error(400);
     exit;
   }
+}
+if (strpos($input->email, "@rootdev.nl")) {
+  Res::error(400);
+  exit;
 }
 
 email([
