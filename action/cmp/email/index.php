@@ -15,7 +15,8 @@ class Input {
 
 $input = Taint::post(new Input());
 if (is_array($input)) {
-  Res::error("Invalid input.", []);
+  Res::error(400);
+  echo "Invalid input.";
   exit;
 }
 
