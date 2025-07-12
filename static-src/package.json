@@ -5,9 +5,8 @@
   "scripts": {
     "build": "./node_modules/gulp/bin/gulp.js"
   },
-
   "devDependencies": {
-    "gulp": "*",
+    "gulp": "^4.0.2",
     "gulp-concat": "*",
     "gulp-htmlmin": "*",
     "gulp-minify-css": "*",
