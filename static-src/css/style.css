@@ -1072,3 +1072,11 @@ h3 .icon {
 .dp {
   display: none;
 }
+
+/* round picture */
+.contact-info img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
